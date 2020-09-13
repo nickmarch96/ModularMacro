@@ -5,13 +5,13 @@ import os
 from elevate import elevate
 import re
 
-from tkinter.filedialog import askopenfilename
-from tkinter import Tk
-Tk().withdraw()
+from pynput import keyboard
 
 
-def openfile():
-	return askopenfilename(title = "Select Macro Config", filetypes=(("config files","*.conf"),("all files","*.*")))
+def establish_keyboard_hook(hotkeys):
+	with keyboard.GlobalHotKeys(hotkeys) as h:
+		h.join()
+		
 
 def check_admin():
 	try:
@@ -102,7 +102,7 @@ def validate_macro(macro):
 
 
 
-def parse_config(path="macro.conf"):
+def parse_config(path):
 	config = configparser.ConfigParser()
 
 	config.read(path)
@@ -112,12 +112,24 @@ def parse_config(path="macro.conf"):
 
 	if "MenuParams" not in ret.keys():
 		print("parse_config::Missing MenuParams Section in Config!")
+		return {}
+
+	if "menu_name" not in ret["MenuParams"].keys():
+		print("parse_config::Missing menu_name in MenuParams Section in Config!")
+		return {}
+
+	if "stop_key" not in ret["MenuParams"].keys():
+		print("parse_config::Missing stop_key in MenuParams Section in Config!")
+		return {}
 
 	for key, value in ret.items():
 		if key == "MenuParams":
 			ret["MenuParams"] = dict(value)
 		else:
 			ret[key] = validate_macro(value)
+
+	assert ret["MenuParams"]["menu_name"]
+	assert ret["MenuParams"]["stop_key"]
 
 	return ret
 
