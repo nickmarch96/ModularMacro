@@ -1,26 +1,20 @@
 import directx_keycodes as dx_keys
 import configparser
 import os
+import webbrowser
 
-from elevate import elevate
 import re
 
 from pynput import keyboard
 
 
+def open_help():
+	webbrowser.open("https://github.com/nickmarch96/ModularMacro", new=2)
+
+
 def establish_keyboard_hook(hotkeys):
 	with keyboard.GlobalHotKeys(hotkeys) as h:
 		h.join()
-		
-
-def check_admin():
-	try:
-		if os.getuid() == 0:
-			return True
-	except AttributeError:
-		if dx_keys.ctypes.windll.shell32.IsUserAnAdmin():
-			return True
-	return False
 
 
 def validate_macro(macro):
@@ -129,7 +123,6 @@ def parse_config(path):
 			ret[key] = validate_macro(value)
 
 	assert ret["MenuParams"]["menu_name"]
-	assert ret["MenuParams"]["stop_key"]
 
 	return ret
 
