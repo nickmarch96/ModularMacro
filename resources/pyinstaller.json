@@ -7,7 +7,7 @@
   },
   {
    "optionDest": "filenames",
-   "value": "C:/Users/Apache/Desktop/Macro Menu/macro_menu.py"
+   "value": "C:/Users/Apache/Documents/GitHub/ModularMacro/gui.py"
   },
   {
    "optionDest": "onefile",
@@ -15,11 +15,11 @@
   },
   {
    "optionDest": "console",
-   "value": true
+   "value": false
   },
   {
    "optionDest": "icon_file",
-   "value": "C:/Users/Apache/Desktop/Macro Menu/resources/macro_menu.ico"
+   "value": "C:/Users/Apache/Documents/GitHub/ModularMacro/resources/macro_menu.ico"
   },
   {
    "optionDest": "name",
@@ -43,7 +43,7 @@
   },
   {
    "optionDest": "uac_admin",
-   "value": true
+   "value": false
   },
   {
    "optionDest": "uac_uiaccess",

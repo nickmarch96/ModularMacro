@@ -1,26 +1,20 @@
 import directx_keycodes as dx_keys
 import configparser
 import os
+import webbrowser
 
-from elevate import elevate
 import re
 
-from tkinter.filedialog import askopenfilename
-from tkinter import Tk
-Tk().withdraw()
+from pynput import keyboard
 
 
-def openfile():
-	return askopenfilename(title = "Select Macro Config", filetypes=(("config files","*.conf"),("all files","*.*")))
+def open_help():
+	webbrowser.open("https://github.com/nickmarch96/ModularMacro", new=2)
 
-def check_admin():
-	try:
-		if os.getuid() == 0:
-			return True
-	except AttributeError:
-		if dx_keys.ctypes.windll.shell32.IsUserAnAdmin():
-			return True
-	return False
+
+def establish_keyboard_hook(hotkeys):
+	with keyboard.GlobalHotKeys(hotkeys) as h:
+		h.join()
 
 
 def validate_macro(macro):
@@ -102,7 +96,7 @@ def validate_macro(macro):
 
 
 
-def parse_config(path="macro.conf"):
+def parse_config(path):
 	config = configparser.ConfigParser()
 
 	config.read(path)
@@ -112,12 +106,23 @@ def parse_config(path="macro.conf"):
 
 	if "MenuParams" not in ret.keys():
 		print("parse_config::Missing MenuParams Section in Config!")
+		return {}
+
+	if "menu_name" not in ret["MenuParams"].keys():
+		print("parse_config::Missing menu_name in MenuParams Section in Config!")
+		return {}
+
+	if "stop_key" not in ret["MenuParams"].keys():
+		print("parse_config::Missing stop_key in MenuParams Section in Config!")
+		return {}
 
 	for key, value in ret.items():
 		if key == "MenuParams":
 			ret["MenuParams"] = dict(value)
 		else:
 			ret[key] = validate_macro(value)
+
+	assert ret["MenuParams"]["menu_name"]
 
 	return ret
 
