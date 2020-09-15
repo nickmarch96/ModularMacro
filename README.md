@@ -8,6 +8,17 @@ ModularMacro is compiled with `auto-py-to-exe` and a json file of its configurat
 
 If you don't want to have to worry about compiling or having python, a working executable can be found in the dist folder.
 
+### Usage:
+
+Upon starting the tool, you will be prompted to enter your macro config. If the macro config loads successfully it will take you to the macro menu.
+The Macro menu has a toolbar up top. The toolbar has 3 menu options. 
+
+File leads you to the option to go back and select a different macro config (after stopping all the threads of the current macro menu).
+Under Tools, there is a Toggle Freeze option. When the Macro Menu is frozen, hotkeys will no longer trigger macros. If any macros are currently running and are set to toggle, freezing the menu will prevent being able to deactive the macro.
+Help leads to this page.
+
+Clicking on any of the text in a macro frame will show the hot key necessary to activate it as well as the description. Clicking again will hide them.
+
 ### Creating Macros
 
 Creating a macro can be broken down into a few steps.
