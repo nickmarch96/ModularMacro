@@ -8,7 +8,7 @@ ModularMacro is compiled with `auto-py-to-exe` and a json file of its configurat
 
 If you don't want to have to worry about compiling or having python, a working executable can be found in the dist folder.
 
-### Usage:
+### Usage
 
 Upon starting the tool, you will be prompted to enter your macro config. If the macro config loads successfully it will take you to the macro menu.
 The Macro menu has a toolbar up top. The toolbar has 3 menu options. 
